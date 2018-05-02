@@ -25,7 +25,7 @@ SECRET_KEY = 'ee4%@%7ele%#jfgdg4xf=x+7*5&+45lp-)hb@qlca#z17ysufx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['zhaopan.vip']
+ALLOWED_HOSTS = ['47.96.88.244']
 
 
 # Application definition
