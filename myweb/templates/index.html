@@ -7,8 +7,15 @@
 <body>
     <h1>Welcome to my web site.</h1>
     <hr>
-    {{posts}}
+    {% for post in posts %}
+        <p style="font-size:16pt;font-weight:bold;">
+            {{ post.title }}
+        </p>
+        <p style="font-size:10pt;letter-spacing:1pt;">
+            {{ post.body }}
+        </p>
+    {% endfor %}
     <hr>
-    <h3>现在时刻：{{now}}</h3>
+    <h3>现在时刻：{{ now }}</h3>
 </body>
 </html>
