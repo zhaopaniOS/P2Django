@@ -9,7 +9,7 @@
     <hr>
     {% for post in posts %}
         <p style="font-size:16pt;font-weight:bold;">
-            {{ post.title }}
+            <a href="/post/{{ post.id }}">{{ post.title }}</a>
         </p>
         <p style="font-size:10pt;letter-spacing:1pt;">
             {{ post.body }}
