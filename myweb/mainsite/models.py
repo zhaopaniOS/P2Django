@@ -14,3 +14,11 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class Camera(models.Model):
+    title = models.CharField(max_length=200)
+    rtmp = models.CharField(max_length=1024)
+    m3u8 = models.CharField(max_length=1024)
+
+    def __unicode__(self):
+        return self.title

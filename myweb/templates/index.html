@@ -13,6 +13,12 @@
         </p>
     {% endfor %}
     <hr>
+    {% for camera in cameras %}
+        <p style="font-size:16pt;font-weight:bold;">
+            <a href="/camera/{{ camera.id }}">{{ camera.title }}</a>
+        </p>
+    {% endfor %}
+    <hr>
     <h3>现在时刻：{{ now }}</h3>
 </body>
 </html>
