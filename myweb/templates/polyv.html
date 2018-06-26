@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
+    <meta name="renderer" content="webkit">
+    <title>{{ polyv.title }}</title>
+    <style>
+        body{margin:0;text-align: center;}
+        video{max-width: 1200px;width: 100%;}
+    </style>
+</head>
+<script>
+</script>
+<body>
+    <script src='//player.polyv.net/script/polyvplayer.min.js'></script>
+    <div id='myPlayer'></div>
+    <script>
+        var player = polyvObject('#myPlayer').videoPlayer({
+            'width':'375',
+            'height':'225',
+            'vid' : '{{ polyv.videoId }} ',
+            'ts':'{{ ts }}',
+            'sign':'{{ sign }}',
+            'df': '2'
+        });
+    </script>
+</body>
+</html>

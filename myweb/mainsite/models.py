@@ -22,3 +22,11 @@ class Camera(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class Polyv(models.Model):
+    title = models.CharField(max_length=200)
+    videoId = models.CharField(max_length=1024)
+    m3u8 = models.CharField(max_length=4096)
+
+    def __unicode__(self):
+        return self.title

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Camera
+from .models import Post, Camera, Polyv
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'pub_date')
@@ -7,6 +7,10 @@ class PostAdmin(admin.ModelAdmin):
 class CameraAdmin(admin.ModelAdmin):
     list_display = ('title', 'rtmp', 'm3u8')
 
+class PolyvAdmin(admin.ModelAdmin):
+    list_display = ('title', 'videoId', 'm3u8')
+
 # Register your models here.
 admin.site.register(Post, PostAdmin)
 admin.site.register(Camera, CameraAdmin)
+admin.site.register(Polyv, PolyvAdmin)

@@ -1,6 +1,6 @@
 from django.template.loader import get_template
 from django.http import HttpResponse
-from .models import Post, Camera
+from .models import Post, Camera, Polyv
 from datetime import datetime
 
 # Create your views here.
@@ -27,6 +27,36 @@ def showcamera(request, id):
     try:
         camera = Camera.objects.get(id=id)
         if camera != None:
+            html = template.render(locals())
+            return HttpResponse(html)
+    except:
+        return HttpResponse('/')
+
+def showpolyv(request, id):
+    template = get_template('polyv.html')
+    try:
+        polyv = Polyv.objects.get(id=id)
+        if polyv != None:
+            # 获取videoId对应的ts和sign
+            ts = ''
+            sign = ''
+            import requests
+            url = 'http://wechat.hanzisiwei.com/haozizai/svideo/getSign?videoId=' + polyv.videoId
+            headers = {
+                'Host': 'wechat.hanzisiwei.com',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'zh-cn',
+                'Connection': 'keep-alive',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E216 MicroMessenger/6.7.0 NetType/WIFI Language/zh_CN',
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+            res = requests.get(url, headers=headers)
+            if res.status_code == 200:
+                data = res.json()
+                t = data.get('t', None)
+                if t:
+                    ts = t.get('ts', '')
+                    sign = t.get('sign', '')
             html = template.render(locals())
             return HttpResponse(html)
     except:

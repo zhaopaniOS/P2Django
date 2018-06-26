@@ -1,4 +1,9 @@
+certifi==2018.4.16
+chardet==3.0.4
 Django==1.11.12
 django-markdown-deux==1.0.5
+idna==2.7
 markdown2==2.3.5
 pytz==2018.4
+requests==2.19.1
+urllib3==1.23
