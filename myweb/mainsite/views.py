@@ -1,3 +1,11 @@
+#!/usr/bin/python
+# encoding: utf-8
+
+"""
+@auth: 273327600@qq.com
+@time: 2018/6/26 11:05
+"""
+
 from django.template.loader import get_template
 from django.http import HttpResponse
 from .models import Post, Camera, Polyv
