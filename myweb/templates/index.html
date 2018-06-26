@@ -31,4 +31,10 @@
             <a href="/camera/{{ camera.id }}">{{ camera.title }}</a>
         </p>
     {% endfor %}
+    <hr>
+    {% for polyv in polyvs %}
+        <p style="font-size:16pt;font-weight:bold;">
+            <a href="/polyv/{{ polyv.id }}">{{ polyv.title }}</a>
+        </p>
+    {% endfor %}
 {% endblock %}

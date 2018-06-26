@@ -16,6 +16,7 @@ def homepage(request):
     template = get_template('index.html')
     posts = Post.objects.all()
     cameras = Camera.objects.all()
+    polyvs = Polyv.objects.all()
     now = datetime.now()
     html = template.render(locals())
     return HttpResponse(html)
