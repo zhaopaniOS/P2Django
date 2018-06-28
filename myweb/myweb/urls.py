@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from mainsite.views import homepage, showpost, showcamera, showpolyv
+from mainsite.views import homepage, showpost, showcamera, showpolyv, showvideo
 
 urlpatterns = [
     url(r'^$', homepage),
     url(r'^post/(\w+)$', showpost),
     url(r'^camera/(\w+)$', showcamera),
     url(r'^polyv/(\w+)$', showpolyv),
+    url(r'^video/(\w+)$', showvideo),
     url(r'^admin/', admin.site.urls),
 ]

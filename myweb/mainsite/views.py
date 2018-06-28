@@ -70,3 +70,14 @@ def showpolyv(request, id):
             return HttpResponse(html)
     except:
         return HttpResponse('/')
+
+def showvideo(request, id):
+    template = get_template('video.html')
+    try:
+        polyv = Polyv.objects.get(id=id)
+        if polyv != None:
+            url = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8'
+            html = template.render(locals())
+            return HttpResponse(html)
+    except:
+        return HttpResponse('/')
