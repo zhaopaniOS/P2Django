@@ -127,7 +127,9 @@ def generateVideo(request):
             response.write("m3u8Url = " + m3u8Url)
             response.write("</p>")
 
-            m3u8Res = requests.get(m3u8Url)
+            head = headers
+            head['Host'] = 'hls.videocc.net'
+            m3u8Res = requests.get(m3u8Url, headers=head)
             response.write("<p>")
             response.write('' + m3u8Res)
             response.write("</p>")
