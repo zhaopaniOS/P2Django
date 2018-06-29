@@ -127,7 +127,7 @@ def generateVideo(request):
             response.write("m3u8Url = " + m3u8Url)
             response.write("</p>")
 
-            m3u8Res = requests.get(m3u8Url)
+            m3u8Res = requests.request('GET', m3u8Url)
             response.write("<p>")
             response.write("Exception with m3u8Res...")
             response.write("</p>")
