@@ -77,8 +77,7 @@ def showvideo(request, id):
     try:
         polyv = Polyv.objects.get(id=id)
         if polyv != None:
-            url = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8'
-            url = 'http://47.96.88.244/static/streams/' + polyv.videoId + '.m3u8'
+            url = 'http://47.96.88.244/static/output/' + polyv.videoId + '.m3u8'
             html = template.render(locals())
             return HttpResponse(html)
     except:
