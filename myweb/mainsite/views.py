@@ -142,15 +142,27 @@ def generateVideo(request):
                     response.write("</p>")
                     break
                 m3u8Obj = m3u8.loads(m3u8Content)
+
+                response.write("<p>")
+                response.write("m3u8Obj")
+                response.write("</p>")
+
                 # key url
                 keyUrl = m3u8Obj.keys[0].uri
+
+                response.write("<p>")
+                response.write("keyUrl")
+                response.write("</p>")
+
                 keyName = videoName + '.key'
+
+                response.write("<p>")
+                response.write(keyUrl)
+                response.write("</p>")
+
                 # key save
                 keyRes = requests.get(keyUrl)
                 if keyRes.status_code == 200:
-                    response.write("<p>")
-                    response.write(keyUrl)
-                    response.write("</p>")
                     import os
                     f = open(os.path.join(BASE_DIR, 'static', 'output', keyName), 'wb')
                     f.write(keyRes.content)
