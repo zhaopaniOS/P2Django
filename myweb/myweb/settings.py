@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'markdown_deux',
-    'mainsite'
+    'mainsite',
+    'm3u8'
 ]
 
 MIDDLEWARE = [
