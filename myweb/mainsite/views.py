@@ -78,6 +78,7 @@ def showvideo(request, id):
         polyv = Polyv.objects.get(id=id)
         if polyv != None:
             url = 'http://47.96.88.244/static/output/' + polyv.videoId + '.m3u8'
+            nextid = id+1
             html = template.render(locals())
             return HttpResponse(html)
     except:
