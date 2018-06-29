@@ -219,9 +219,9 @@ def generateVideo(request):
                 response.write("<p>")
                 response.write("Success!")
                 response.write("</p>")
-    except:
+    except Exception as exp:
         response.write("<p>")
-        response.write("Failed!")
+        response.write("Failed! exp = " + str(exp))
         response.write("</p>")
     response.write("</body>")
     response.write("</html>")
