@@ -127,11 +127,9 @@ def generateVideo(request):
             response.write("m3u8Url = " + m3u8Url)
             response.write("</p>")
 
-            head = headers
-            head['Host'] = 'hls.videocc.net'
-            m3u8Res = requests.get(m3u8Url, headers=head)
+            m3u8Res = requests.get(m3u8Url)
             response.write("<p>")
-            response.write('' + m3u8Res)
+            response.write("Exception with m3u8Res...")
             response.write("</p>")
 
             if m3u8Res.status_code == 200:
