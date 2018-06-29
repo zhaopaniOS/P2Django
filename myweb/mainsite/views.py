@@ -135,16 +135,20 @@ def generateVideo(request):
                 response.write("</p>")
                 # parse m3u8 content
                 try:
-                    from .. import m3u8
+                    import m3u8
                 except ImportError:
                     response.write("<p>")
                     response.write("ImportError")
                     response.write("</p>")
                     break
+                response.write("<p>")
+                response.write("import m3u8Obj")
+                response.write("</p>")
+
                 m3u8Obj = m3u8.loads(m3u8Content)
 
                 response.write("<p>")
-                response.write("m3u8Obj")
+                response.write("m3u8.loads")
                 response.write("</p>")
 
                 # key url
