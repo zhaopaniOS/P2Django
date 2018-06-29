@@ -92,7 +92,7 @@ def generateVideo(request):
     try:
         for polyv in polyvs:
             response.write("<p>")
-            response.write(polyv.title)
+            response.write(polyv.title + ' ' + polyv.videoId)
             response.write("</p>")
             # 获取videoId对应的ts和sign
             ts = ''
@@ -121,7 +121,13 @@ def generateVideo(request):
 
             # m3u8 url
             svideoId = polyv.videoId
+            response.write("<p>")
+            response.write(svideoId)
+            response.write("</p>")
             videoName = svideoId.replace('_8', '_2')
+            response.write("<p>")
+            response.write(videoName)
+            response.write("</p>")
             m3u8Url = 'http://hls.videocc.net/8b0a2fa267/0/' + videoName + '.m3u8'
             res = requests.get(m3u8Url, params={
                 'ts': ts,
