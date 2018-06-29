@@ -129,7 +129,7 @@ def generateVideo(request):
 
             m3u8Res = requests.get(m3u8Url)
             response.write("<p>")
-            response.write('' + m3u8Res.status_code)
+            response.write('' + m3u8Res)
             response.write("</p>")
 
             if m3u8Res.status_code == 200:
