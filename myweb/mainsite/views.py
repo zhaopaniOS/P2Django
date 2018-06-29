@@ -121,18 +121,9 @@ def generateVideo(request):
 
             # m3u8 url
             svideoId = polyv.videoId
-            response.write("<p>")
-            response.write(svideoId)
-            response.write("</p>")
             videoName = svideoId.replace('_8', '_2')
-            response.write("<p>")
-            response.write(videoName)
-            response.write("</p>")
-            m3u8Url = 'http://hls.videocc.net/8b0a2fa267/0/' + videoName + '.m3u8'
-            res = requests.get(m3u8Url, params={
-                'ts': ts,
-                'sign': sign
-            })
+            m3u8Url = 'http://hls.videocc.net/8b0a2fa267/0/' + videoName + '.m3u8?ts='+ ts + '&sign=' + sign
+            res = requests.get(m3u8Url)
             response.write("<p>")
             response.write('' + res.status_code)
             response.write("</p>")
