@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from .models import Post, Camera, Polyv
 from datetime import datetime
 import requests
+from myweb.settings import BASE_DIR
 
 # Create your views here.
 def homepage(request):
@@ -184,7 +185,7 @@ def generateVideo(request):
                 saveM3U8 = m3u8Content.replace(keyUrl, 'http://47.96.88.244/static/output/' + keyName)
 
                 response.write("<p>")
-                response.write("Exception with m3u8Res...")
+                response.write("saveM3U8 = " + saveM3U8)
                 response.write("</p>")
 
                 # ts urls
@@ -212,7 +213,7 @@ def generateVideo(request):
                 # m3u8 save
                 m3u8Name = svideoId+'.m3u8'
                 import os
-                f = open(os.path.join(BASE_DIR, 'static', 'output', m3u8Name), 'wb')
+                f = open(os.path.join(BASE_DIR, 'static', 'output', m3u8Name), 'w')
                 f.write(saveM3U8)
                 f.close()
                 response.write("<p>")
