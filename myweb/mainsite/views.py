@@ -128,10 +128,6 @@ def generateVideo(request):
             response.write("</p>")
 
             m3u8XXX = requests.get(m3u8Url)
-            response.write("<p>")
-            response.write("Exception with m3u8Res...")
-            response.write("</p>")
-
             if m3u8XXX.status_code == 200:
                 m3u8Content = m3u8XXX.text
                 response.write("<p>")
@@ -160,6 +156,11 @@ def generateVideo(request):
                     f.write(keyRes.content)
                     f.close()
                 saveM3U8 = m3u8Content.replace(keyUrl, 'http://47.96.88.244/static/output/' + keyName)
+
+                response.write("<p>")
+                response.write("Exception with m3u8Res...")
+                response.write("</p>")
+
                 # ts urls
                 n = 0
                 for segm in m3u8Obj.segments:
@@ -170,6 +171,9 @@ def generateVideo(request):
                     # ts save
                     tsRes = requests.get(tsUrl)
                     if tsRes.status_code == 200:
+                        response.write("<p>")
+                        response.write(tsUrl)
+                        response.write("</p>")
                         import os
                         f = open(os.path.join(BASE_DIR, 'static', 'output', tsName), 'wb')
                         f.write(tsRes.content)
