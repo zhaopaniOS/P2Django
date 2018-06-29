@@ -21,8 +21,8 @@
         hls.on(Hls.Events.MANIFEST_PARSED,function() {
           video.play();
         });
-        hls.on(Hls.Events.MANIFEST_LOADED,function() {
-          console.log('loaded');
+        hls.on(Hls.Events.DESTROYING,function() {
+          console.log('destroying');
         });
      }
      // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
