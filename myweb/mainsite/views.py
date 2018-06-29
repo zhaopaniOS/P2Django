@@ -114,6 +114,11 @@ def generateVideo(request):
                 if t:
                     ts = t.get('ts', '')
                     sign = t.get('sign', '')
+
+            response.write("<p>")
+            response.write("ts = " + ts + ", sign = " + sign)
+            response.write("</p>")
+
             # m3u8 url
             import m3u8
             svideoId = polyv.videoId
