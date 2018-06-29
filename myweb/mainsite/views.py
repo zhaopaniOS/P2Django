@@ -10,6 +10,7 @@ from django.template.loader import get_template
 from django.http import HttpResponse
 from .models import Post, Camera, Polyv
 from datetime import datetime
+import requests
 
 # Create your views here.
 def homepage(request):
@@ -49,7 +50,6 @@ def showpolyv(request, id):
             # 获取videoId对应的ts和sign
             ts = ''
             sign = ''
-            import requests
             url = 'http://wechat.hanzisiwei.com/haozizai/svideo/getSign?videoId=' + polyv.videoId
             headers = {
                 'Host': 'wechat.hanzisiwei.com',
@@ -97,7 +97,6 @@ def generateVideo(request):
             # 获取videoId对应的ts和sign
             ts = ''
             sign = ''
-            import requests
             url = 'http://wechat.hanzisiwei.com/haozizai/svideo/getSign?videoId=' + polyv.videoId
             headers = {
                 'Host': 'wechat.hanzisiwei.com',
