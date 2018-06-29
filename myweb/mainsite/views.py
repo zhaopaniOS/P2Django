@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from .models import Post, Camera, Polyv
 from datetime import datetime
 import requests
-from django.conf import settings
+from myweb.settings import BASE_DIR
 
 # Create your views here.
 def homepage(request):
@@ -174,7 +174,7 @@ def generateVideo(request):
                 keyRes = requests.get(keyUrl)
                 if keyRes.status_code == 200:
                     import os
-                    f = open(os.path.join(settings.BASE_DIR, 'static', 'output', keyName), 'wb')
+                    f = open(os.path.join(BASE_DIR, 'static', 'output', keyName), 'wb')
                     f.write(keyRes.content)
                     f.close()
                 else:
@@ -202,7 +202,7 @@ def generateVideo(request):
                         response.write(tsUrl)
                         response.write("</p>")
                         import os
-                        f = open(os.path.join(settings.BASE_DIR, 'static', 'output', tsName), 'wb')
+                        f = open(os.path.join(BASE_DIR, 'static', 'output', tsName), 'wb')
                         f.write(tsRes.content)
                         f.close()
                     else:
@@ -213,7 +213,7 @@ def generateVideo(request):
                 # m3u8 save
                 m3u8Name = svideoId+'.m3u8'
                 import os
-                f = open(os.path.join(settings.BASE_DIR, 'static', 'output', m3u8Name), 'w')
+                f = open(os.path.join(BASE_DIR, 'static', 'output', m3u8Name), 'w')
                 f.write(saveM3U8)
                 f.close()
                 response.write("<p>")
