@@ -127,13 +127,13 @@ def generateVideo(request):
             response.write("m3u8Url = " + m3u8Url)
             response.write("</p>")
 
-            m3u8Res = requests.request('GET', m3u8Url)
+            m3u8XXX = requests.get(m3u8Url)
             response.write("<p>")
             response.write("Exception with m3u8Res...")
             response.write("</p>")
 
-            if m3u8Res.status_code == 200:
-                m3u8Content = m3u8Res.text()
+            if m3u8XXX.status_code == 200:
+                m3u8Content = m3u8XXX.text
                 response.write("<p>")
                 response.write(m3u8Content)
                 response.write("</p>")
@@ -154,7 +154,7 @@ def generateVideo(request):
                 if keyRes.status_code == 200:
                     import os
                     f = open(os.path.join(BASE_DIR, 'static', 'output', keyName), 'wb')
-                    f.write(keyRes.content())
+                    f.write(keyRes.content)
                     f.close()
                 saveM3U8 = m3u8Content.replace(keyUrl, 'http://47.96.88.244/static/output/' + keyName)
                 # ts urls
@@ -169,7 +169,7 @@ def generateVideo(request):
                     if tsRes.status_code == 200:
                         import os
                         f = open(os.path.join(BASE_DIR, 'static', 'output', tsName), 'wb')
-                        f.write(tsRes.content())
+                        f.write(tsRes.content)
                         f.close()
                 # m3u8 save
                 m3u8Name = svideoId+'.m3u8'
