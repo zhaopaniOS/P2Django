@@ -121,7 +121,7 @@ def generateVideo(request):
 
             # m3u8 url
             try:
-                from ... import m3u8
+                from .. import m3u8
             except ImportError:
                 response.write("<p>")
                 response.write("ImportError")
