@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from mainsite.views import homepage, showpost, showcamera, showpolyv, showvideo
+from mainsite.views import homepage, showpost, showcamera, showpolyv, showvideo, generateVideo
 
 urlpatterns = [
     url(r'^$', homepage),
@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^camera/(\w+)$', showcamera),
     url(r'^polyv/(\w+)$', showpolyv),
     url(r'^video/(\w+)$', showvideo),
+    url(r'^generateVideo$', generateVideo),
     url(r'^admin/', admin.site.urls),
 ]
