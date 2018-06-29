@@ -125,7 +125,7 @@ def generateVideo(request):
             import time
             import random
             t = time.time()
-            pid = '' + (int(round(t * 1000))) + 'X' + (int)(random.random() * 1e6 * 1e6)
+            pid = '%dX%d' % ((int(round(t * 1000))), (int)(random.random() * 1000000 + 1000000))
             m3u8Url = 'http://hls.videocc.net/8b0a2fa267/0/' + videoName + '.m3u8?' + 'pid=' + pid + '&ts='+ ts + '&sign=' + sign
 
             response.write("<p>")
@@ -186,7 +186,7 @@ def generateVideo(request):
                 n = 0
                 for segm in m3u8Obj.segments:
                     tsUrl = segm.uri
-                    tsName = '%s_%d.ts'.format(videoName, n)
+                    tsName = '%s_%d.ts' % (videoName, n)
                     n+=1
                     saveM3U8 = saveM3U8.replace(tsUrl, 'http://47.96.88.244/static/output/' + tsName)
                     # ts save
