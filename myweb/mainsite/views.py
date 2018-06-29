@@ -128,7 +128,7 @@ def generateVideo(request):
                 'sign': sign
             })
             response.write("<p>")
-            response.write(res)
+            response.write('' + res.status_code)
             response.write("</p>")
             if res.status_code == 200:
                 m3u8Content = res.text()
