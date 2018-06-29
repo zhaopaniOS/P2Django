@@ -152,6 +152,9 @@ def generateVideo(request):
                 # key save
                 keyRes = requests.get(keyUrl)
                 if keyRes.status_code == 200:
+                    response.write("<p>")
+                    response.write(keyUrl)
+                    response.write("</p>")
                     import os
                     f = open(os.path.join(BASE_DIR, 'static', 'output', keyName), 'wb')
                     f.write(keyRes.content)
