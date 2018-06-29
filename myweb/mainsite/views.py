@@ -176,6 +176,11 @@ def generateVideo(request):
                     f = open(os.path.join(BASE_DIR, 'static', 'output', keyName), 'wb')
                     f.write(keyRes.content)
                     f.close()
+                else:
+                    response.write("<p>")
+                    response.write("keyRes.status_code = " + keyRes.status_code)
+                    response.write("</p>")
+                    break
                 saveM3U8 = m3u8Content.replace(keyUrl, 'http://47.96.88.244/static/output/' + keyName)
 
                 response.write("<p>")
@@ -199,6 +204,11 @@ def generateVideo(request):
                         f = open(os.path.join(BASE_DIR, 'static', 'output', tsName), 'wb')
                         f.write(tsRes.content)
                         f.close()
+                    else:
+                        response.write("<p>")
+                        response.write("tsRes.status_code = " + tsRes.status_code)
+                        response.write("</p>")
+                        break
                 # m3u8 save
                 m3u8Name = svideoId+'.m3u8'
                 import os
