@@ -22,7 +22,9 @@
     </p>
 </video>
 <script>
-    var options = {};
+    var options = {
+        overrideNative: true, // for Android & Chrome in Android
+    };
 
     var player = videojs('example-video', options, function onPlayerReady() {
 
