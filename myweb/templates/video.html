@@ -13,7 +13,7 @@
     <script src="/static/js/videojs-flash.min.js"></script>
     <script src="/static/js/videojs-contrib-hls.min.js"></script>
     <video id="example-video" style="width: 100%; height: 350px" class="video-js vjs-default-skin vjs-big-play-centered"
-           controls preload="auto" data-setup="{}"
+           controls preload="auto" data-setup='{"techOrder": ["html5", "flash", "other supported tech"]}'
             muted autoplay playsinline>
     <source
         src="{{ url }}"
