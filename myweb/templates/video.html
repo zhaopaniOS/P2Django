@@ -27,6 +27,8 @@
     var options = {
         overrideNative: true, // for Android & Chrome in Android
     };
+    videojs.options.html5.nativeAudioTracks = false;
+    videojs.options.html5.nativeVideoTracks = false;
 
     var player = videojs('example-video', options, function onPlayerReady() {
 
