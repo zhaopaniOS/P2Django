@@ -13,7 +13,7 @@
     <script src="/static/js/videojs-flash.min.js"></script>
     <script src="/static/js/videojs-contrib-hls.min.js"></script>
     <video id="example-video" style="width: 100%; height: 350px" class="video-js vjs-default-skin vjs-big-play-centered"
-           controls preload="auto" data-setup='{"techOrder": ["html5", "flash", "other supported tech"]}'
+           controls preload="auto" data-setup=""
             muted autoplay playsinline>
     <source
         src="{{ url }}"
@@ -25,7 +25,8 @@
 </video>
 <script>
     var options = {
-        overrideNative: true, // for Android & Chrome in Android
+        //overrideNative: true, // for Android & Chrome in Android
+        techOrder: ["html5", "flash", "other supported tech"], // order using html5/flash
     };
     videojs.options.html5.nativeAudioTracks = false;
     videojs.options.html5.nativeVideoTracks = false;
