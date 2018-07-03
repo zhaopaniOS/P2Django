@@ -117,6 +117,11 @@ def generateVideo(request):
                 if t:
                     ts = t.get('ts', '')
                     sign = t.get('sign', '')
+            else:
+                response.write("<p>")
+                response.write("res.status_code = " + res.status_code)
+                response.write("</p>")
+                break
 
             response.write("<p>")
             response.write("ts = " + ts + ", sign = " + sign)
