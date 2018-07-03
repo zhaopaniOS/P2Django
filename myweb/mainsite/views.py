@@ -108,6 +108,7 @@ def generateVideo(request):
                 'Connection': 'keep-alive',
                 'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E216 MicroMessenger/6.7.0 NetType/WIFI Language/zh_CN',
                 'X-Requested-With': 'XMLHttpRequest',
+                'Referer': 'http://wechat.hanzisiwei.com/haozizai/index.html'
             }
             res = requests.get(url, headers=headers)
             if res.status_code == 200:
