@@ -13,6 +13,8 @@ from datetime import datetime
 import requests
 from myweb.settings import STATIC_ROOT
 
+URL_OUTPUT_PATH = 'http://hanzisiwei.qdota.com/static/output/'
+
 # Create your views here.
 def homepage(request):
     template = get_template('index.html')
@@ -77,7 +79,7 @@ def showvideo(request, id):
     try:
         polyv = Polyv.objects.get(id=id)
         if polyv != None:
-            url = 'http://47.96.88.244/static/output/' + polyv.videoId + '.m3u8'
+            url = URL_OUTPUT_PATH + polyv.videoId + '.m3u8'
             nextid = polyv.id+1
             html = template.render(locals())
             return HttpResponse(html)
@@ -182,7 +184,7 @@ def generateVideo(request):
                     response.write("keyRes.status_code = " + keyRes.status_code)
                     response.write("</p>")
                     break
-                saveM3U8 = m3u8Content.replace(keyUrl, 'http://47.96.88.244/static/output/' + keyName)
+                saveM3U8 = m3u8Content.replace(keyUrl, URL_OUTPUT_PATH + keyName)
 
                 response.write("<p>")
                 response.write("saveM3U8 = " + saveM3U8)
@@ -194,7 +196,7 @@ def generateVideo(request):
                     tsUrl = segm.uri
                     tsName = '%s_%d.ts' % (videoName, n)
                     n+=1
-                    saveM3U8 = saveM3U8.replace(tsUrl, 'http://47.96.88.244/static/output/' + tsName)
+                    saveM3U8 = saveM3U8.replace(tsUrl, URL_OUTPUT_PATH + tsName)
                     # ts save
                     tsRes = requests.get(tsUrl)
                     if tsRes.status_code == 200:
