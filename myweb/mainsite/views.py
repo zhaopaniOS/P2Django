@@ -343,5 +343,5 @@ def transMovie(request, id):
                     movie.save()
                     return HttpResponse('一级子播放列表转码成功')
     except Exception as e:
-        print(str(e))
+        return HttpResponse(str(e))
     return HttpResponse('源路径转码失败')
