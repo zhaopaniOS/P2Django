@@ -331,9 +331,7 @@ def transMovie(request, id):
 
                 else:
                     # 一级播放列表，保存在movies下边，以movie id命名
-                    uri_ppp = requests.utils.urlparse(movie.m3u8)
-                    host = uri_ppp.scheme + "://" + uri_ppp.netloc
-                    body = fixM3U8UriWithSegments(res.text, host)
+                    body = fixM3U8UriWithSegments(res.text, movie_host)
                     # 保存
                     f = open(os.path.join(STATIC_ROOT, 'movies', str(movie.id) + '.m3u8'), 'w')
                     f.write(body)
