@@ -1,0 +1,23 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %} 电影 {% endblock %}
+{% block headmessage %}
+    <h3 style="font-family:楷体;">本站电影列表</h3>
+{% endblock %}
+{% block content %}
+    {% for movie in movies %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p style="font-size:16pt;font-weight:bold;">
+                    <a href="/movie/{{ movie.id }}">{{ movie.title }}</a>
+                </p>
+            </div>
+            <div class="panel-body" style="background-color:#ffffdd">
+                <p>
+                    {{ movie.summary | truncatechars:256 }}
+                </p>
+            </div>
+        </div>
+        <br />
+    {% endfor %}
+{% endblock %}

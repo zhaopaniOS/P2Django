@@ -8,12 +8,13 @@
 
 from django.template.loader import get_template
 from django.http import HttpResponse
-from .models import Post, Camera, Polyv
+from .models import Post, Camera, Polyv, Movie, MovieSeries
 from datetime import datetime
 import requests
 from myweb.settings import STATIC_ROOT
 
 URL_OUTPUT_PATH = 'http://hanzisiwei.qdota.com/static/output/'
+URL_MOVIE_PATH = 'http://hanzisiwei.qdota.com/static/movies/'
 
 # Create your views here.
 def homepage(request):
@@ -234,3 +235,113 @@ def generateVideo(request):
     response.write("</body>")
     response.write("</html>")
     return response
+
+def movies(request):
+    template = get_template('movies.html')
+    movies = Movie.objects.all()
+    html = template.render(locals())
+    return HttpResponse(html)
+
+def movie(request, id):
+    template = get_template('video.html')
+    try:
+        movie = Movie.objects.get(id=id)
+        if movie and movie.success:
+            url = URL_MOVIE_PATH + str(movie.id) + '.m3u8'
+            html = template.render(locals())
+            return HttpResponse(html)
+    except:
+        pass
+    return HttpResponse('抱歉，该影片暂时未获得！敬请期待')
+
+def fixM3U8UriWithSegments(str,host):
+    changed = False
+    import requests
+    import m3u8
+    m3u8Obj = m3u8.loads(str)
+    if m3u8Obj and not m3u8Obj.is_variant:
+        for segm in m3u8Obj.segments:
+            result = requests.utils.urlparse(segm.uri)
+            if len(result.scheme) == 0:
+                # 需要补上host
+                segm.uri = host + segm.uri
+                changed = True
+
+    if changed:
+        return m3u8Obj.__unicode__()
+    return str
+
+def transMovie(request, id):
+    try:
+        movie = Movie.objects.get(id=id)
+        if movie and not movie.success:
+            # 清空已有的Movie片段
+            MovieSeries.objects.filter(movie=movie).delete()
+            # 将movie关联的子播放列表放到id目录下
+            import os
+            movie_id_path = os.path.join(STATIC_ROOT, 'movies', str(movie.id))
+            if not os.path.exists(movie_id_path):
+                os.mkdir(movie_id_path)
+            # 源m3u8的host
+            movie_uri = requests.utils.urlparse(movie.m3u8)
+            movie_host = movie_uri.scheme + "://" + movie_uri.netloc
+            # 尝试转换源m3u8
+            res = requests.get(movie.m3u8)
+            if res.status_code == 200:
+                import m3u8
+                m3u8Obj = m3u8.loads(res.text)
+                if m3u8Obj.is_variant:
+                    # 跳转到另外的play lists
+                    for playlist in m3u8Obj.playlists:
+                        # 跳转的url
+                        uri = playlist.uri
+                        # 解析url
+                        uri_ppp = requests.utils.urlparse(uri)
+                        host = ''
+                        if len(uri_ppp.scheme) == 0:
+                            uri = movie_host + uri
+                            host = movie_host
+                        else:
+                            host = uri_ppp.scheme + "://" + uri_ppp.netloc
+                        # 需要加Referer
+                        uri_res = requests.get(uri, headers={
+                            'Referer': movie.m3u8
+                        })
+                        if uri_res.status_code == 200:
+                            # 得到真实的播放序列，修复相对路径的问题、保存本地
+                            uri_body = fixM3U8UriWithSegments(uri_res.text, host)
+                            # 将Movie片段写数据库
+                            obj = MovieSeries.objects.create(movie=movie,summary='')
+                            # 子文件路径
+                            m3u8Name = str(obj.id) + ".m3u8"
+                            f = open(os.path.join(movie_id_path, m3u8Name), 'w')
+                            f.write(uri_body)
+                            f.close()
+
+                            # 二级播放列表，保存在movies/movie.id/series.id.m3u8
+                            playlist.uri =  URL_MOVIE_PATH + str(movie.id) + '/' + m3u8Name
+                    # 一级播放列表，保存在movies下边，以movie id命名
+                    f = open(os.path.join(STATIC_ROOT, 'movies', str(movie.id) + '.m3u8'), 'w')
+                    f.write(m3u8Obj.__unicode__())
+                    f.close()
+                    # 更新Movie
+                    movie.success = True
+                    movie.save()
+                    return HttpResponse('二级子播放列表转码成功')
+
+                else:
+                    # 一级播放列表，保存在movies下边，以movie id命名
+                    uri_ppp = requests.utils.urlparse(movie.m3u8)
+                    host = uri_ppp.scheme + "://" + uri_ppp.netloc
+                    body = fixM3U8UriWithSegments(res.text, host)
+                    # 保存
+                    f = open(os.path.join(STATIC_ROOT, 'movies', str(movie.id) + '.m3u8'), 'w')
+                    f.write(body)
+                    f.close()
+                    # 更新Movie
+                    movie.success = True
+                    movie.save()
+                    return HttpResponse('一级子播放列表转码成功')
+    except Exception as e:
+        print(str(e))
+    return HttpResponse('源路径转码失败')

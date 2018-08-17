@@ -40,7 +40,9 @@
 
         // How about an event listener?
         this.on('ended', function() {
-            window.location.href='./{{ nextid }}'
+            {% if nextid %}
+                window.location.href='./{{ nextid }}'
+            {% endif %}
         });
     });
 </script>
