@@ -12,6 +12,7 @@ from .models import Post, Camera, Polyv, Movie, MovieSeries
 from datetime import datetime
 import requests
 from myweb.settings import STATIC_ROOT
+from django.conf import settings as djangosetting
 
 URL_OUTPUT_PATH = 'http://hanzisiwei.qdota.com/static/output/'
 URL_MOVIE_PATH = 'http://hanzisiwei.qdota.com/static/movies/'
@@ -23,6 +24,7 @@ def homepage(request):
     cameras = Camera.objects.all()
     polyvs = Polyv.objects.all()
     now = datetime.now()
+    platform_setting = djangosetting.PLATFORM_SETTING
     html = template.render(locals())
     return HttpResponse(html)
 
